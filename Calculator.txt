@@ -1,0 +1,74 @@
+public class prac1 {
+    public Decimal number1{set;get;}
+    public Decimal number2{set;get;}
+    public Decimal result{set;get;}
+    public Double funcv{set;get;}
+    public void add(){
+        result=number1+number2;
+    }
+    public void subtract(){
+        result=number1-number2;
+    }
+    public void multiply(){
+        result=number1*number2;
+    }
+    
+    
+    public void divide(){
+        if(number2==0){
+           apexpages.addMessage(new ApexPages.message(Apexpages.Severity.ERROR,'Cant divide by 0'));
+             result= 0;
+            return;
+        }
+        result=number1/number2;
+    }
+    public void sin(){
+        Double val=funcv*(Math.PI/180.0);
+        result=Math.sin(val);
+    }
+    public void cos(){
+         Double val=funcv*(Math.PI/180.0);
+        result=Math.cos(val);
+    }
+    public void tan(){
+         Double val=funcv*(Math.PI/180.0);
+        result=Math.tan(val);
+    }
+    public void sqrt(){
+        result=Math.sqrt(funcv);
+    }
+}
+
+<apex:page controller="prac1">
+    <apex:form id="form">
+        <apex:pageMessages id="msg"/>
+        <apex:pageBlock title="Calculator">
+            <apex:panelGrid columns="2">
+                First Number<apex:inputText value="{!number1}"/>
+                
+                Second Number<apex:inputText value="{!number2}"/>
+                Function Parameter<apex:inputText value="{!funcv}" />
+            </apex:panelGrid>
+			<br/>
+            
+            Arithmetic operations : 
+            <apex:panelGrid columns="4">
+                <apex:commandButton value="Add" action="{!add}" rerender="form"/>
+                <apex:commandButton value="Subtract" action="{!subtract}" rerender="form"/>
+                <apex:commandButton value="Multiply" action="{!multiply}" rerender="form"/>
+                <apex:commandButton value="Divide" action="{!divide}" rerender="form"/>
+            </apex:panelGrid>
+            
+            <br/>
+            <apex:panelGrid columns="4">
+                <apex:commandButton value="Sin" action="{!sin}" rerender="form"/>
+                <apex:commandButton value="Cos" action="{!cos}" rerender="form"/>
+                <apex:commandButton value="Tan" action="{!tan}" rerender="form"/>
+            </apex:panelGrid>
+
+            <apex:outputPanel id="resultPanel">
+                <apex:outputText value="Result: {!result}"/>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
